@@ -5,11 +5,28 @@ namespace neighbors1
 {
     class Program
     {
-        static int[] Neighbors(int[] arr, int index)
+        static int[] Neighbors(int[] arr, int i)
         {
-            
+            var result = new List<int>();
+            // i - 1, i + 1
+            // arr[i-1], arr[i+1]
+            //if (i < 0 || i > arr.Length - 1)
+            if (!isIndex(arr, i))
+            {
+                return result.ToArray();
+            }
+            //if (i - 1 >= 0 && i - 1 < arr.Length)
+            if (isIndex(arr, i - 1))
+            {
+                result.Add(i - 1);
+            }
+            // if (i + 1 >= 0 && i + 1 < arr.Length)
+            if (isIndex(arr, i + 1))
+            {
+                result.Add(i + 1);
+            }
 
-            return arr;
+            return result.ToArray();
         }
         static bool isIndex(int[] arr, int index)
         {
@@ -17,21 +34,35 @@ namespace neighbors1
         }
         static void Main(string[] args)
         {
-            int[] arr = { 3, 1, 2, 4 };
-            Console.WriteLine( ToString(arr));
+            int[] arr = { 10, 22, 5, 15 };
+            Console.WriteLine(ToString(arr));
             for (int i = 0; i < arr.Length; i++)
             {
-                int[] result = Neighbors(arr, 0);
-                Console.WriteLine("index {0} neighbors {1}", i, ToString(result));
+                int[] result = Neighbors(arr, i);
+                Console.WriteLine("index {0}, neighbors: {1}", i, ToString(result));
 
             }
+            foreach (var i in new int[] { -1, arr.Length })
+            {
+                int[] result = Neighbors(arr, i);
+                Console.WriteLine("index {0}, neighbors: {1}", i, ToString(result));
+            }
+
+            arr = new int[] { };
+            Console.WriteLine(ToString(arr));
+            foreach (var i in new int[] { -1, 0, 4})
+            {
+                int[] result = Neighbors(arr, i);
+                Console.WriteLine("index {0}, neighbors: {1}", i, ToString(result));
+            }
+
         }
         static String ToString(int[] arr)
         {
             var result = "[ ";
             foreach (var item in arr)
             {
-                result =+ item + " ";
+                result += item + " ";
             }
             return result + "]";
 
