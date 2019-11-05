@@ -5,7 +5,7 @@ namespace neighbors2
 {
     class Program
     {
-        static int[][] Neighbors(int[][] arr, int i, int j)
+        static List<int>[] Neighbors(int[][] arr, int i, int j)
         {
             // int[], int  -> int[]
             // neighbors are i and i-1 and i+1
@@ -20,7 +20,7 @@ namespace neighbors2
             { // i
                 // neighbors are at offsets  -1 and + 1
                 var offsets = new int[] { -1, 1 };
-                var pair;
+                List<int> pair;
                 // j is constant
                 foreach (var iOffSet in offsets)
                 {
@@ -46,7 +46,7 @@ namespace neighbors2
                     }
                 }
             }
-
+            //Console.WriteLine(string.Join(",", result));
             return result.ToArray();
         }
 
@@ -56,14 +56,27 @@ namespace neighbors2
         }
         static void Main(string[] args)
         {
-            int[] arr = { 10, 22, 5, 15 };
-            Console.WriteLine(ToString(arr));
+            int[][] arr = { new int[]{ 10, 22, 5, 15 },
+                            new int[]{ 33, 11, 9, 44}, 
+                            new int[]{ 22, 55, 3, 11} 
+                          };
             for (int i = 0; i < arr.Length; i++)
             {
-                int[] result = Neighbors(arr, i);
-                Console.WriteLine("index {0}, neighbors: {1}", i, ToString(result));
+                Console.WriteLine(ToString(arr[i]));
+            }
+            
+            var rows = arr.Length;
+            var columns = arr[0].Length;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    List<int>[] result = Neighbors(arr, i, j);
+                    Console.WriteLine("index {0},{1} neighbors: {2}", i, j, ToString2(result));
+                }
 
             }
+            /*
             foreach (var i in new int[] { -1, arr.Length })
             {
                 int[] result = Neighbors(arr, i);
@@ -77,6 +90,7 @@ namespace neighbors2
                 int[] result = Neighbors(arr, i);
                 Console.WriteLine("index {0}, neighbors: {1}", i, ToString(result));
             }
+            */
 
         }
         static String ToString(int[] arr)
@@ -90,6 +104,19 @@ namespace neighbors2
 
 
         }
+        static String ToString2(List<int>[] arr)
+        {
+            var result = "[ ";
+            foreach (var item in arr)
+            {
+                result += "(" + string.Join(",", item) + ") ";
+                //Console.WriteLine(item);
+            }
+            return result + "]";
+
+
+        }
+
     }
 
 }
