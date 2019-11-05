@@ -7,30 +7,29 @@ namespace neighbors1
     {
         static int[] Neighbors(int[] arr, int i)
         {
+            // int[], int  -> int[]
+            // neighbors are i and i-1 and i+1
             var result = new List<int>();
-            // i - 1, i + 1
-            // arr[i-1], arr[i+1]
-            //if (i < 0 || i > arr.Length - 1)
-            if (!isIndex(arr, i))
-            {
-                return result.ToArray();
-            }
-            //if (i - 1 >= 0 && i - 1 < arr.Length)
-            if (isIndex(arr, i - 1))
-            {
-                result.Add(i - 1);
-            }
-            // if (i + 1 >= 0 && i + 1 < arr.Length)
-            if (isIndex(arr, i + 1))
-            {
-                result.Add(i + 1);
+
+            if (isIndex(arr.Length, i))
+            { // i
+                // neighbors are at offsets  -1 and + 1
+                foreach (var offset in new int[]{-1,1} )
+                {
+
+                    if (isIndex(arr.Length, i + offset))
+                    { 
+                        result.Add(i + offset);
+                    }
+                }
             }
 
             return result.ToArray();
         }
-        static bool isIndex(int[] arr, int index)
+
+        static bool isIndex(int length, int index)
         {
-            return index >= 0 && index < arr.Length;
+            return index >= 0 && index < length;
         }
         static void Main(string[] args)
         {
@@ -50,7 +49,7 @@ namespace neighbors1
 
             arr = new int[] { };
             Console.WriteLine(ToString(arr));
-            foreach (var i in new int[] { -1, 0, 4})
+            foreach (var i in new int[] { -1, 0, 4 })
             {
                 int[] result = Neighbors(arr, i);
                 Console.WriteLine("index {0}, neighbors: {1}", i, ToString(result));
