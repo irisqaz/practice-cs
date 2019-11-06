@@ -7,38 +7,37 @@ namespace neighbors2
     {
         static List<Tuple<int, int>> Neighbors(int[][] arr, int i, int j)
         {
-            // int[], int  -> int[]
-            // neighbors are i and i-1 and i+1
-            var result = new List<Tuple<int, int>>();
-            int rLength = arr.Length;
-            int cLength = 0;
-            if (arr.Length > 0)
-            {
-                cLength = arr[0].Length;
+            // list of neighbors
+            List<Tuple<int,int>> result = new List<Tuple<int,int>>();
+
+            int rows = arr.Length;
+            int columns = 0;
+            if (rows > 0){
+                columns = arr[0].Length;
             }
-            if (isIndex(rLength, i) && isIndex(cLength, j))
-            { // i
-                // neighbors are at offsets  -1 and + 1
-                var offsets = new int[] { -1, 1 };
-                Tuple<int, int> pair;
-                // i is constant
+
+            if (isIndex(rows, i) && isIndex(columns, j))
+            { 
+                int[] offsets = {1,-1};
+                Tuple<int,int> neighbor;
+
                 foreach (var jOffSet in offsets)
                 {
 
-                    if (isIndex(cLength, j + jOffSet))
+                    if (isIndex(columns, j + jOffSet))
                     {
-                        pair = Tuple.Create(i, j + jOffSet);
-                        result.Add(pair);
+                        neighbor = Tuple.Create(i, j + jOffSet);
+                        result.Add(neighbor);
                     }
                 }
-                // j is constant
+                
                 foreach (var iOffSet in offsets)
                 {
 
-                    if (isIndex(rLength, i + iOffSet))
+                    if (isIndex(rows, i + iOffSet))
                     {
-                        pair = Tuple.Create(i + iOffSet, j);
-                        result.Add(pair);
+                        neighbor = Tuple.Create(i + iOffSet, j);
+                        result.Add(neighbor);
                     }
                 }
             }
@@ -54,7 +53,8 @@ namespace neighbors2
         {
             int[][] arr = { new int[]{ 10, 22, 5, 15 },
                             new int[]{ 33, 11, 9, 44},
-                            new int[]{ 22, 55, 3, 11}
+                            new int[]{ 22, 55, 3, 11},
+                            new int[]{ 55, 99, 1, 22}
                           };
             for (int i = 0; i < arr.Length; i++)
             {
