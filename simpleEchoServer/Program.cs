@@ -12,9 +12,10 @@ namespace simpleEchoServer
                 line = Console.ReadLine();
                 if (line.StartsWith("HTTP"))
                 {
-                    String body = GetBody(line);
-                    String resp = GetResponse(body);
-                    Console.WriteLine(body);
+                    String reqBody = GetBody(line);
+                    String respBody = GetResponse(reqBody);
+                    String resp = String.Format("HTTP OK body:{0}", respBody);
+                    Console.WriteLine(resp);
                 }
             }
         }
