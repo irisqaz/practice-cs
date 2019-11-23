@@ -1,3 +1,4 @@
+*.csproj
 *.swp
 *.*~
 project.lock.json
